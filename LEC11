@@ -1,0 +1,216 @@
+#include <iostream>
+#include <string>
+#include <limits>
+
+using namespace std;
+
+void clearConsole() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}
+
+// Функция для отрисовки горизонтальной линии
+void drawHorizontalLine(int length, char texture) {
+    cout << "[ + ] Результат:\n" << endl;
+    for (int i = 0; i < length; i++) {
+        cout << texture << " ";
+    }
+    cout << "\n" << endl;
+}
+
+// Функция для отрисовки вертикальной линии
+void drawVerticalLine(int length, char texture) {
+    cout << "[ + ] Результат:\n" << endl;
+    for (int i = 0; i < length; i++) {
+        cout << texture << endl;
+    }
+    cout << endl;
+}
+
+// Функция для отрисовки квадрата
+void drawSquare(int size, char texture) {
+    cout << "[ + ] Результат:\n" << endl;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            cout << texture << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
+// Функция для отрисовки прямоугольника
+void drawRectangle(int width, int height, char texture) {
+    cout << "[ + ] Результат:\n" << endl;
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            cout << texture << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
+// Функция для отрисовки треугольника
+void drawTriangle(int height, char texture) {
+    cout << "[ + ] Результат:\n" << endl;
+    for (int i = 1; i <= height; i++) {
+        for (int j = 0; j < i; j++) {
+            cout << texture << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
+int main() {
+    setlocale(LC_ALL, "Russian");
+    int choice;
+    bool running = true;
+
+    while (running) {
+        // Главное меню
+        clearConsole();
+        cout << "[ + ] Программа - \"Геометрические фигуры\"\n" << endl;
+        cout << "[ 1 ] Линия" << endl;
+        cout << "[ 2 ] Квадрат" << endl;
+        cout << "[ 3 ] Прямоугольник" << endl;
+        cout << "[ 4 ] Треугольник" << endl;
+        cout << "[ 0 ] Выход" << endl;
+        cout << "\n[ + ] Выберите фигуру: ";
+
+        // Проверка корректности ввода
+        while (!(cin >> choice)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "[ ! ] Ошибка! Введите число: ";
+        }
+
+        if (choice == 0) {
+            running = false;
+            continue;
+        }
+
+        clearConsole();
+
+        switch (choice) {
+        case 1: { // Линия
+            cout << "[ + ] Фигура: \"Линия\"\n" << endl;
+            cout << "[ 1 ] Горизонтальная" << endl;
+            cout << "[ 2 ] Вертикальная" << endl;
+            cout << "\n[ + ] Выберите тип: ";
+
+            int lineType;
+            while (!(cin >> lineType) || (lineType != 1 && lineType != 2)) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "[ ! ] Ошибка! Введите 1 или 2: ";
+            }
+
+            int length;
+            cout << "[ + ] Длина линии: ";
+            while (!(cin >> length) || length <= 0) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "[ ! ] Ошибка! Введите положительное число: ";
+            }
+
+            char texture;
+            cout << "[ + ] Текстура линии: ";
+            cin >> texture;
+
+            clearConsole();
+            if (lineType == 1) {
+                drawHorizontalLine(length, texture);
+            }
+            else {
+                drawVerticalLine(length, texture);
+            }
+            break;
+        }
+
+        case 2: { // Квадрат
+            cout << "[ + ] Фигура: \"Квадрат\"\n" << endl;
+
+            int size;
+            cout << "[ + ] Размер квадрата: ";
+            while (!(cin >> size) || size <= 0) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "[ ! ] Ошибка! Введите положительное число: ";
+            }
+
+            char texture;
+            cout << "[ + ] Текстура квадрата: ";
+            cin >> texture;
+
+            clearConsole();
+            drawSquare(size, texture);
+            break;
+        }
+
+        case 3: { // Прямоугольник
+            cout << "[ + ] Фигура: \"Прямоугольник\"\n" << endl;
+
+            int width, height;
+            cout << "[ + ] Ширина прямоугольника: ";
+            while (!(cin >> width) || width <= 0) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "[ ! ] Ошибка! Введите положительное число: ";
+            }
+
+            cout << "[ + ] Высота прямоугольника: ";
+            while (!(cin >> height) || height <= 0) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "[ ! ] Ошибка! Введите положительное число: ";
+            }
+
+            char texture;
+            cout << "[ + ] Текстура прямоугольника: ";
+            cin >> texture;
+
+            clearConsole();
+            drawRectangle(width, height, texture);
+            break;
+        }
+
+        case 4: { // Треугольник
+            cout << "[ + ] Фигура: \"Треугольник\"\n" << endl;
+
+            int height;
+            cout << "[ + ] Высота треугольника: ";
+            while (!(cin >> height) || height <= 0) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "[ ! ] Ошибка! Введите положительное число: ";
+            }
+
+            char texture;
+            cout << "[ + ] Текстура треугольника: ";
+            cin >> texture;
+
+            clearConsole();
+            drawTriangle(height, texture);
+            break;
+        }
+
+        default:
+            cout << "[ ! ] Неверный выбор! Попробуйте снова." << endl;
+        }
+
+        if (choice >= 1 && choice <= 4) {
+            cout << "[ + ] Нажмите Enter для продолжения...";
+            cin.ignore();
+            cin.get();
+        }
+    }
+
+    cout << "[ + ] Программа завершена. До свидания!" << endl;
+
+    return 0;
+}
